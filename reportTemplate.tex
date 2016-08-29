@@ -33,11 +33,13 @@ Give an overview over your project here. Give a glimpse insight in the problem a
 
 Aligning two sets of points in multiple dimensions is an important step if one is interested in comparing two point clouds. These points might originate from an accurate 3d model of an object, a 3d scan or from other tools to acquire multidimensional data. Even if the same method was used for both sets, the number of points and their exact positions might differ. Also, in case the two sets actually have the same number of points, one cannot assume the points appear in the same order.
 
-The iterative-closest-point (ICP) algorithm solves both problems: finding the best corespondence between the sets of points and aligning the point clouds according to this. To do this, it is necessary first to find the nearest neighbor for each point. Then, the sets of points can be aligned by minimizing the total distance between the points. These two steps are repeated until either the point clouds are perfectly aligned or the distance is below some specified threshold.
+The iterative-closest-point (ICP) algorithm solves both problems: finding the best corespondence between the sets of points and aligning the point clouds according to this. To do this, it is necessary first to find the nearest neighbor for each point. Then, the sets of points can be aligned by minimizing the total distance between the points. These two steps are repeated until either the point clouds are perfectly aligned or the total distance is below some specified threshold.
 
-While the second step, minimizing the distances between points, can be trivially implemented by using the least squares method, there are multiple ways of implementing and optimizing the nearest neighbor search.
+While the second step, minimizing the distances between points, can be trivially implemented, e. g. by using the least squares method, there are multiple ways of implementing and optimizing the nearest neighbor search (NNS). One way of improving the performance of an NNS is by using dedicated data structures, such as trees, for either one or both sets of points. The method of using treelike structures for both sets is known as dual-tree traversal.
 
-In particular, the possibility of utilizing the graphics processing unit(GPU) as a means of computation for this search hasn't been explored thoroughly.
+There is a large variety of trees one can use in conjunction with the dual tree traversal algorithm, and their influence on the performance has already been studied comprehensively. However, little was done to investigate how to run this algorithm in parallel. In particular, the possibility of utilizing the graphics processing unit(GPU) as a means of computation for this search hasn't been explored thoroughly.
+
+With this work we want to advance Curtis' work \cite{improving} towards a parallel implementation of this general approach. By comparing the performance of a brute-force approach and search on a single kdtree and search on two R-trees, both in the sequential as well as the parallel way, we show 
 \section{Related Work} 
 
 Give an overview over the content of all the papers, documents, websites, etc. related to your work that you read. If there are already attemps to adress the problem in a (massively) parallel way, mention them as well.
