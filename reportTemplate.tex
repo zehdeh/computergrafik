@@ -1,0 +1,108 @@
+\documentclass{utue} %uumi.cls required for Uni Ulm corporate design
+\usepackage{listings}
+\usepackage{url}
+
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, xleftmargin=10mm}
+
+% Values for title generation
+\title{Dual tree traversal for nearest neighbour search}
+\author{Fabian Fritz}
+\date{\today}
+
+% Subtitle is optional. It represents what kind of work you did.
+\subtitle{Praktikum Computergrafik SoSe2016}
+
+\begin{document}
+
+% You can place a teaser as follows. (Otherwise, just uncomment the following part)
+\teaser{
+    \includegraphics[width=\textwidth]{images/teaser.jpg}
+    \caption{You can place a teaser here.}
+    \label{fig:teaser}
+}     
+
+% Creates title of document and additional title page.
+\maketitle
+
+\section*{Abstract}
+
+Give an overview over your project here. Give a glimpse insight in the problem and write why it is important to be solved. Write what you did to make your implementation better than the state of the art implementations.
+
+
+\section{Introduction}
+
+Aligning two sets of points in multiple dimensions is an important step if one is interested in comparing two point clouds. These points might originate from an accurate 3d model of an object, a 3d scan or from other tools to acquire multidimensional data. Even if the same method was used for both sets, the number of points and their exact positions might differ. Also, in case the two sets actually have the same number of points, one cannot assume the points appear in the same order.
+
+The iterative-closest-point (ICP) algorithm solves both problems: finding the best corespondence between the sets of points and aligning the point clouds according to this. To do this, it is necessary first to find the nearest neighbor for each point. Then, the sets of points can be aligned by minimizing the total distance between the points. These two steps are repeated until either the point clouds are perfectly aligned or the distance is below some specified threshold.
+
+While the second step, minimizing the distances between points, can be trivially implemented by using the least squares method, there are multiple ways of implementing and optimizing the nearest neighbor search.
+
+In particular, the possibility of utilizing the graphics processing unit(GPU) as a means of computation for this search hasn't been explored thoroughly.
+\section{Related Work} 
+
+Give an overview over the content of all the papers, documents, websites, etc. related to your work that you read. If there are already attemps to adress the problem in a (massively) parallel way, mention them as well.
+
+
+\section{Description of the Solution}
+
+Describe your solution to the problem in detail. I propose to spend one chapter on a general, simple solution strategy so that the reader is familiar with how to solve the problem. This could also be a summary of the paper or document you mainly used to base your work on.
+
+Subsequently, your particular solution should be described. Spend at least one chapter on describing the (parallel) improvements you made upon the naive implementation. It might be advantageous to split the implementation description to parts, each filling a subsection, and to give an overview over those parts first.
+
+\subsection{Subsection Demo}
+
+Subsections look like this. If you need more hierarchy, use paragraphs.
+
+
+\section{Evaluation}
+
+If you parallelized several parts of an initially serial algorithm, it might make sense to evaluate all the parallel parts individually. You should show some timings (computation time compared to problem size) - preferably compared to a CPU implementation if available.  If you made some simplifications or assumptions for parallelization, show some quality measures / examples.
+
+For cases where no CPU implementation is available, show numbers about GPU utilization, branching coherence within warps or memory bandwith utilization to point out how nice your implementation is.
+
+Feel free to show tables, graphs, result images and everything else that could be interesting to the reader.
+
+\appendix
+
+\section{General Infos}
+
+You don't need an appendix. The two appendix sections are just there to give some additional or general information.
+
+This document describes roughly, what the documentation of the Praktikum project should look like.
+
+Note that your final documentation of your project should contain 6 - 8 text pages using this template plus the cover and the empty sheet at the beginning. So overall, your submitted pdf should have 8 - 10 pages.
+
+\section{\LaTeX~Infos}
+
+This section demonstrates some \LaTeX~features / characteristics. For a much more extensive introduction to \LaTeX, refer to the PDF on \url{http://drzoom.ch/diplomarbeit-mit-latex.html}. For getting certain LaTeX features and keywords explained, have a look at \url{http://en.wikibooks.org/wiki/LaTeX}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.4\columnwidth]{images/Tuebingen_CorporateElements/UT_BM_Rot_RGB_tr_01.png}
+  \caption{This is a figure.}
+  \label{fig:figure1}
+\end{figure}
+
+You should refere to images like the one in Figure \ref{fig:figure1} from the text instead of trying to place figures close to the text parts where they are mentioned. You cannot force \LaTeX~to place images on certain positions but only give it some hints, so make sure that your document is understandable independently from figure placement.
+
+Beside figures, you can also label sections and tables and refer to them.
+
+For references, extend the \texttt{bibliography.bib} file and cite papers like \cite{Miller1995}. The easiest way to edit the \texttt{.bib} file is to use a tool like \emph{Jabref}. You may also find ready to use bibtex tags on the web which you can directly copy to the \texttt{bibliography.bib} file.
+
+For building this document, you should use 
+\begin{lstlisting}[firstnumber=1]
+pdflatex reportTemplate.tex
+bibtex reportTemplate.aux
+pdflatex reportTemplate.tex
+pdflatex reportTemplate.tex
+\end{lstlisting}
+to be sure that all citations and references within the document are correct. In some weired cases, it might be necessary to run pdflatex even more often.
+
+Remember to change your \LaTeX~source in small steps - this makes error tracking quite easy.
+
+
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+
+\end{document}
+
